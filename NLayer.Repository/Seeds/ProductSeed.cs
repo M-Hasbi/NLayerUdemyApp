@@ -37,7 +37,7 @@ namespace NLayer.Repository.Seeds
             },
             new Product
             {
-                Id = 1,
+                Id = 4,
                 CategoryId = 2,
                 Name = "Book1",
                 Price = 100,
