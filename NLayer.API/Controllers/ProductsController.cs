@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using NLayer.Core;
 using NLayer.Core.DTOs;
 using NLayer.Core.Service;
+using NLayer.Core.Services;
 
 namespace NLayer.API.Controllers
 {
@@ -12,11 +13,21 @@ namespace NLayer.API.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IService<Product> _service;
-        public ProductsController(IMapper mapper, IService<Product> service)
+        private readonly IProductService _productService;
+        public ProductsController(IMapper mapper, IService<Product> service, IProductService productService)
         {
             _mapper = mapper;
             _service = service;
+            _productService = productService;
         }
+        //GET api/products/GetProductsWithCategory
+        [HttpGet("[action]")]
+        public async Task<IActionResult> GetProductsWithCategory()
+        {
+            return CreateActionResult(await _productService.GetProductsWithCategory());
+        }
+
+        //GET api/products
         [HttpGet]
         public async Task<IActionResult> All()
         {
@@ -24,6 +35,7 @@ namespace NLayer.API.Controllers
             List<ProductDto>? productsDtos = _mapper.Map<List<ProductDto>>(products.ToList());
             return CreateActionResult(CustomResponseDto<List<ProductDto>>.Success(200, productsDtos));
         }
+        //GET api/products/3
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
