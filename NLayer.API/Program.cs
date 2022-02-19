@@ -9,7 +9,7 @@ using NLayer.Service.Mapping;
 using NLayer.Service.Services;
 using System.Reflection;
 
-var builder = WebApplication.CreateBuilder(args);
+WebApplicationBuilder? builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
@@ -33,7 +33,7 @@ builder.Services.AddDbContext<AppDbContext>(x =>
 });
 
 
-var app = builder.Build();
+WebApplication? app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
