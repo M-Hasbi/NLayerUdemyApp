@@ -9,13 +9,11 @@ namespace NLayer.API.Controllers
 {
     public class CategoriesController : ControllerBaseController
     {
-        private readonly IMapper _mapper;
-        private readonly IService<Category> _service;
+        
         private readonly ICategoryService _categoryService;
-        public CategoriesController(IMapper mapper, IService<Category> service, ICategoryService categoryService)
+        public CategoriesController(ICategoryService categoryService)
         {
-            _mapper = mapper;
-            _service = service;
+            
             _categoryService = categoryService;
         }
 
