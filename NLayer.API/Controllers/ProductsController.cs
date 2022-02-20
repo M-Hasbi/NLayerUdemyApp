@@ -1,12 +1,14 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using NLayer.API.Filters;
 using NLayer.Core;
 using NLayer.Core.DTOs;
-using NLayer.Core.Service;
 using NLayer.Core.Services;
 
 namespace NLayer.API.Controllers
 {
+    [ServiceFilter(typeof(NotFoundFilter<Product>))] //runtime first executes. Before executes the method, It controls if its value is null or not 
+                                                     //GET api/products/GetProductsWithCategory
     public class ProductsController : ControllerBaseController
     {
         private readonly IMapper _mapper;
@@ -14,10 +16,9 @@ namespace NLayer.API.Controllers
         private readonly IProductService _service;
         public ProductsController(IMapper mapper, IProductService productService)
         {
-            _mapper = mapper;   
+            _mapper = mapper;
             _service = productService;
         }
-        //GET api/products/GetProductsWithCategory
         [HttpGet("[action]")]
         public async Task<IActionResult> GetProductsWithCategory()
         {
