@@ -7,8 +7,6 @@ using NLayer.Core.Services;
 
 namespace NLayer.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
     public class ProductsController : ControllerBaseController
     {
         private readonly IMapper _mapper;
@@ -59,7 +57,7 @@ namespace NLayer.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> Remove(int id)
         {
-            var product = await _service.GetByIdAsync(id);
+            Product? product = await _service.GetByIdAsync(id);
             await _service.Delete(product);
             return CreateActionResult(CustomResponseDto<NoContentDto>.Success(204));
         }
