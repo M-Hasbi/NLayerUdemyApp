@@ -68,7 +68,7 @@ namespace NLayer.Caching
 
         public Task<Product> GetByIdAsync(int id)
         {
-            var product = _memoryCache.Get<List<Product>>(CacheProductKey).FirstOrDefault(x => x.Id == id);
+            Product? product = _memoryCache.Get<List<Product>>(CacheProductKey).FirstOrDefault(x => x.Id == id);
             if (product == null)
             {
                 throw new NotFoundException($"{typeof(Product).Name}({id}) is not null");
@@ -78,8 +78,8 @@ namespace NLayer.Caching
 
         public Task<List<ProductWithCategoryDto>> GetProductsWithCategory()
         {
-            var products = _memoryCache.Get<IEnumerable<Product>>(CacheProductKey);
-            var productsWithCategoryDto = _mapper.Map<List<ProductWithCategoryDto>>(products);
+            IEnumerable<Product>? products = _memoryCache.Get<IEnumerable<Product>>(CacheProductKey);
+            List<ProductWithCategoryDto>? productsWithCategoryDto = _mapper.Map<List<ProductWithCategoryDto>>(products);
             return Task.FromResult(productsWithCategoryDto);
         }
 

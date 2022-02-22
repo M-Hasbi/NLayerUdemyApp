@@ -1,7 +1,6 @@
 ﻿using Autofac;
 using NLayer.Core.Repositories;
 using NLayer.Core.Service;
-using NLayer.Core.Services;
 using NLayer.Core.UnitOfWorks;
 using NLayer.Repository;
 using NLayer.Repository.Repositories;

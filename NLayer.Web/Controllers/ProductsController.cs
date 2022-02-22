@@ -27,8 +27,8 @@ namespace NLayer.Web.Controllers
 
         public async Task<IActionResult> Save()
         {
-            var categories = _categoryService.GetAllAsync();
-            var categoriesDto = _mapper.Map<List<CategoryDto>>(categories);
+            IEnumerable<Category>? categories = await _categoryService.GetAllAsync();
+            List<CategoryDto>? categoriesDto = _mapper.Map<List<CategoryDto>>(categories.ToList());
 
             ViewBag.categories = new SelectList(categoriesDto, "Id", "Name");
 
@@ -43,16 +43,15 @@ namespace NLayer.Web.Controllers
                 await _productService.AddAsync(_mapper.Map<Product>(productDto));
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                var categories = _categoryService.GetAllAsync();
-                var categoriesDto = _mapper.Map<List<CategoryDto>>(categories);
+            IEnumerable<Category>? categories = await _categoryService.GetAllAsync();
+            List<CategoryDto>? categoriesDto = _mapper.Map<List<CategoryDto>>(categories.ToList());
 
-                ViewBag.categories = new SelectList(categoriesDto, "Id", "Name");
+            ViewBag.categories = new SelectList(categoriesDto, "Id", "Name");
 
-                return View();
-            }
+            return View();
         }
+
+
 
 
     }
