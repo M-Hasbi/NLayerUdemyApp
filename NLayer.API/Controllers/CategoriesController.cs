@@ -9,12 +9,23 @@ namespace NLayer.API.Controllers
 {
     public class CategoriesController : ControllerBaseController
     {
-        
+
         private readonly ICategoryService _categoryService;
-        public CategoriesController(ICategoryService categoryService)
+        private readonly IMapper _mapper;
+        public CategoriesController(ICategoryService categoryService, IMapper mapper)
         {
-            
+
             _categoryService = categoryService;
+            _mapper = mapper;
+        }
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var categories = await _categoryService.GetAllAsync();
+
+            var categoriesDto = _mapper.Map<List<CategoryDto>>(categories);
+
+            return CreateActionResult(CustomResponseDto<List<CategoryDto>>.Success(200, categoriesDto));
         }
 
         //GET api/categories/GetSingleCategoryWithProducts/2
@@ -24,7 +35,7 @@ namespace NLayer.API.Controllers
             return CreateActionResult(await _categoryService.GetSingleCategoryWithProducts(categoryId));
         }
 
-        
+
 
 
 
