@@ -17,7 +17,7 @@ namespace NLayer.Repository
         public override int SaveChanges()
         {
 #pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
-            foreach (var item in ChangeTracker.Entries())
+            foreach (Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry? item in ChangeTracker.Entries())
             {
                 if (item.Entity is BaseEntity entityReferance)
                 {
@@ -44,7 +44,7 @@ namespace NLayer.Repository
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
 #pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
-            foreach (var item in ChangeTracker.Entries())
+            foreach (Microsoft.EntityFrameworkCore.ChangeTracking.EntityEntry? item in ChangeTracker.Entries())
             {
                 if (item.Entity is BaseEntity entityReferance)
                 {
@@ -55,14 +55,14 @@ namespace NLayer.Repository
                                 entityReferance.CreatedDate = DateTime.Now;
                                 break;
                             }
-                            case EntityState.Modified:
+                        case EntityState.Modified:
                             {
                                 Entry(entityReferance).Property(x => x.CreatedDate).IsModified = false;
                                 entityReferance.UpdatedTime = DateTime.Now;
                                 break;
                             }
                     }
-                    
+
                 }
             }
 #pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions

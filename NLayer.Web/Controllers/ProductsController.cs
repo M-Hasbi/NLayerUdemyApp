@@ -19,7 +19,7 @@ namespace NLayer.Web.Controllers
             _categoryService = categoryService;
             _mapper = mapper;
         }
-        
+
         public async Task<IActionResult> Index()
         {
             return View(await _productService.GetProductsWithCategory());
@@ -34,7 +34,7 @@ namespace NLayer.Web.Controllers
 
             return View();
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> Save(ProductDto productDto)
         {

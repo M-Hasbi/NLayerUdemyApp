@@ -30,7 +30,7 @@ namespace NLayer.Web
             {
                 await next.Invoke();
             }
-            var errorViewModel = new ErrorViewModel();
+            ErrorViewModel? errorViewModel = new ErrorViewModel();
             errorViewModel.Errors.Add($"{typeof(T).Name}({id}) not found");
 
             context.Result = new RedirectToActionResult("Error", "Home", errorViewModel);
